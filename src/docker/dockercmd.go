@@ -7,6 +7,15 @@ import (
 	"os/exec"
 )
 
+func IsDockerInstalled() bool{
+	cmd := exec.Command("docker")
+	err := cmd.Run()
+	if(err != nil) {
+		return false
+	} else {
+		return true
+	}
+}
 
 func DockerPull(imageName string){
 	
@@ -18,7 +27,7 @@ func DockerPull(imageName string){
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("docker pull: %q\n", out.String())
+	fmt.Println("docker pull:", out.String())
 	
 }
 
@@ -32,6 +41,6 @@ func DockerTag(imageName string){
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("docker tag: %q\n", out.String())
+	fmt.Println("docker tag:", out.String())
 	
 }
