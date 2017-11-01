@@ -17,7 +17,6 @@ func IsDockerInstalled() bool{
 	}
 }
 
-//https://golang.org/pkg/strings/#Index
 func GetDockerVersion() (string, error){
 	//Create version parsing regex
 	var versionRegEx = regexp.MustCompile(`[0-9.]+`)

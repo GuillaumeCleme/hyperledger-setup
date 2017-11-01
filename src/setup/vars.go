@@ -1,8 +1,8 @@
 package setup
 
 const (
-	fabricTag = ""
-	Version = "1.0.3"
+	FABRICTAG = ""
+	VERSION = "1.0.3"
 )
 
-var Images = [...]string {"peer", "orderer", "couchdb", "ccenv", "javaenv", "kafka", "zookeeper", "tools"}
+var IMAGES = [...]string {"peer", "orderer", "couchdb", "ccenv", "javaenv", "kafka", "zookeeper", "tools"}

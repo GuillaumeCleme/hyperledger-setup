@@ -12,7 +12,7 @@ import (
 
 func dockerFabricPull(){
 	
-	images := setup.Images
+	images := setup.IMAGES
 	
 	for i := 0; i < len(images); i++ {
 		fmt.Println(images[i])
@@ -29,6 +29,7 @@ func dockerCaPull(){
 
 
 func main(){
-	
-	dockerFabricPull()
+	//dockerFabricPull()
+	fmt.Println(setup.GetRuntimeArch())
+	fmt.Println(setup.GetRuntimeOS())
 }

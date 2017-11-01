@@ -28,7 +28,6 @@ func TestGetDockerVersion(t *testing.T) {
 }
 
 func TestDockerPull(t *testing.T) {
-	//TODO Returns success
 	message, err := DockerPull("hyperledger/fabric-peer:x86_64-" + setup.Version)
 	
 	if err != nil{
