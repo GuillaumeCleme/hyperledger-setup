@@ -26,7 +26,7 @@ func GetDockerVersion() (string, error){
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return "", errors.New("Failed to run [docker version] command" + err.Error())
+		return "", errors.New("Failed to run [docker version] command: " + err.Error())
 	} else{
 		
 		output := out.String()
@@ -50,7 +50,7 @@ func DockerPull(imageName string) (string, error){
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return "", errors.New("Failed to run [docker pull] command" + err.Error())
+		return "", errors.New("Failed to run [docker pull] command: " + err.Error())
 	} else{
 		return out.String(), nil
 	}	
@@ -64,7 +64,7 @@ func DockerTag(imageName string) (string, error){
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return "", errors.New("Failed to run [docker tag] command" + err.Error())
+		return "", errors.New("Failed to run [docker tag] command: " + err.Error())
 	} else{
 		return out.String(), nil
 	}
