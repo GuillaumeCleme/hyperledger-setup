@@ -42,30 +42,16 @@ func GetDockerVersion() (string, error){
 	}
 }
 
-func DockerPull(imageName string) (string, error){
+func ExecDockerCmd(params ...string) (string, error){
 	
-	cmd := exec.Command("docker", "pull", imageName)
+	cmd := exec.Command("docker", params)
 
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return "", errors.New("Failed to run [docker pull] command: " + err.Error())
+		return "", errors.New("Failed to execute docker command: " + err.Error())
 	} else{
 		return out.String(), nil
 	}	
-}
-
-func DockerTag(imageName string) (string, error){
-	
-	cmd := exec.Command("docker", "tag", imageName)
-
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	if err != nil {
-		return "", errors.New("Failed to run [docker tag] command: " + err.Error())
-	} else{
-		return out.String(), nil
-	}
 }
