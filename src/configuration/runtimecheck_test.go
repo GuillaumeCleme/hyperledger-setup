@@ -1,14 +1,14 @@
-package setup_test
+package configuration_test
 
 import (
     "testing"
-    "setup"
+    "configuration"
     "fmt"
 )
 
 func TestGetRuntimeArch(t *testing.T) {
 	
-	runtime := setup.GetRuntimeArch()
+	runtime := configuration.GetRuntimeArch()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime architecture")
@@ -17,7 +17,7 @@ func TestGetRuntimeArch(t *testing.T) {
 
 func TestGetRuntimeOS(t *testing.T) {
 	
-	runtime := setup.GetRuntimeOS()
+	runtime := configuration.GetRuntimeOS()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime OS")
@@ -26,8 +26,8 @@ func TestGetRuntimeOS(t *testing.T) {
 
 func TestGetImageArch(t *testing.T) {
 	
-	runtime := setup.GetImageArch()
-	runtimeArch := setup.GetRuntimeArch()
+	runtime := configuration.GetImageArch()
+	runtimeArch := configuration.GetRuntimeArch()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime architecture")
@@ -38,7 +38,7 @@ func TestGetImageArch(t *testing.T) {
 
 func TestGetBinArch(t *testing.T) {
 	
-	binArch := setup.GetBinArch()
+	binArch := configuration.GetBinArch()
 	
 	if binArch == ""{
 		t.Error("Could not get bin architecture")

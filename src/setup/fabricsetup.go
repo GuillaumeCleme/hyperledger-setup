@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"docker"
-	"setup"
+	"configuration"
 	"strconv"
 	"strings"
 	"errors"
@@ -16,12 +16,12 @@ import (
 
 func dockerFabricPull(){
 	
-	arch := setup.GetImageArch()
+	arch := configuration.GetImageArch()
 	
-	for i := 0; i < len(setup.IMAGES); i++ {
+	for i := 0; i < len(configuration.IMAGES); i++ {
 		
-		imageName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i] + ":" + arch + "-" + setup.VERSION
-		tagName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i]
+		imageName := configuration.DOCKER_IMG_PREFIX + configuration.IMAGES[i] + ":" + arch + "-" + configuration.VERSION
+		tagName := configuration.DOCKER_IMG_PREFIX + configuration.IMAGES[i]
 		
 		fmt.Println("Pulling Docker image: " + imageName)
 		
@@ -36,7 +36,7 @@ func dockerFabricPull(){
 		fmt.Println("Docker Tag:", message)
 	}
 	
-	imageName := setup.DOCKER_IMG_PREFIX + setup.BASE_DOCKER_NAME + ":" + arch + "-" + setup.BASE_DOCKER_TAG
+	imageName := configuration.DOCKER_IMG_PREFIX + configuration.BASE_DOCKER_NAME + ":" + arch + "-" + configuration.BASE_DOCKER_TAG
 	
 	//Docker Pull baseos
 	message, err := docker.ExecDockerCmd("pull", imageName)
@@ -46,10 +46,10 @@ func dockerFabricPull(){
 
 func getBinaries(location string){
 
-	for i := 0; i < len(setup.DOWNLOADS); i++ {
-		fmt.Println("Downloading file: " + setup.DOWNLOADS[i])
+	for i := 0; i < len(configuration.DOWNLOADS); i++ {
+		fmt.Println("Downloading file: " + configuration.DOWNLOADS[i])
 	
-		location, tarFile := downloadFromUrl(setup.DOWNLOADS[i], location)
+		location, tarFile := downloadFromUrl(configuration.DOWNLOADS[i], location)
 		
 		dlLocation := location + tarFile
 		fmt.Println("Downloaded file to: " + dlLocation)
@@ -102,12 +102,12 @@ func checkDockerReq() (bool, error){
 		verInt, err := strconv.Atoi(strings.Replace(version, ".", "", -1))
 		checkErr("Error while parsing Docker version", err)
 		
-		minVerInt, err := strconv.Atoi(strings.Replace(setup.MIN_DOCKER_VER, ".", "", -1))
+		minVerInt, err := strconv.Atoi(strings.Replace(configuration.MIN_DOCKER_VER, ".", "", -1))
 		checkErr("Error while parsing minimum Docker version", err)
 		
 		if verInt < minVerInt {
 			//Minimum version not satisfied
-			return false, errors.New("Minimum Docker version [" + setup.MIN_DOCKER_VER + "] not satisfied")
+			return false, errors.New("Minimum Docker version [" + configuration.MIN_DOCKER_VER + "] not satisfied")
 		} else{
 			return true, nil
 		}

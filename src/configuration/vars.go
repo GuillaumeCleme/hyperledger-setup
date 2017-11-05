@@ -1,4 +1,4 @@
-package setup
+package configuration
 
 const (
 	VERSION = "1.0.3"
