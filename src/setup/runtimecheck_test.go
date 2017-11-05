@@ -1,12 +1,13 @@
-package setup
+package setup_test
 
 import (
     "testing"
+    "setup"
 )
 
 func TestGetRuntimeArch(t *testing.T) {
 	
-	runtime := GetRuntimeArch()
+	runtime := setup.GetRuntimeArch()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime architecture")
@@ -15,7 +16,7 @@ func TestGetRuntimeArch(t *testing.T) {
 
 func TestGetRuntimeOS(t *testing.T) {
 	
-	runtime := GetRuntimeOS()
+	runtime := setup.GetRuntimeOS()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime OS")
@@ -24,8 +25,8 @@ func TestGetRuntimeOS(t *testing.T) {
 
 func TestGetImageArch(t *testing.T) {
 	
-	runtime := GetImageArch()
-	runtimeArch := GetRuntimeArch()
+	runtime := setup.GetImageArch()
+	runtimeArch := setup.GetRuntimeArch()
 	
 	if runtime == ""{
 		t.Error("Could not get runtime architecture")

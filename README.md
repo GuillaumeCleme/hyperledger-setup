@@ -10,6 +10,9 @@ A playground for learning all about Go while creating a HyperLedger DEV environm
 * Error handling: 
 	* https://blog.golang.org/error-handling-and-go
 	* https://davidnix.io/post/error-handling-in-go/
+* Testing:
+	* https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-golang-619653f90742
+	* https://medium.com/@robiplus/golang-trick-export-for-test-aa16cbd7b8cd	
 
 ### GO Docs
 

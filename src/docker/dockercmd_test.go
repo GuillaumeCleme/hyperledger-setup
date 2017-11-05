@@ -1,14 +1,15 @@
-package docker
+package docker_test
 
 import (
     "testing"
+    "docker"
     "fmt"
     "setup"
     "regexp"
 )
 
 func TestIsDockerInstalled(t *testing.T) {
-	installed := IsDockerInstalled()
+	installed := docker.IsDockerInstalled()
 	fmt.Println("Docker Installed:", installed)
 }
 
@@ -16,7 +17,7 @@ func TestGetDockerVersion(t *testing.T) {
 	//Create version matching regex
 	var versionRegEx = regexp.MustCompile(`[0-9.]*`)
 
-	message, err := GetDockerVersion()
+	message, err := docker.GetDockerVersion()
 	
 	if err != nil{
 		t.Error("Error while retrieving docker version", err)
@@ -28,7 +29,7 @@ func TestGetDockerVersion(t *testing.T) {
 }
 
 func TestDockerPull(t *testing.T) {
-	message, err := ExecDockerCmd("pull", "hyperledger/fabric-peer:x86_64-" + setup.VERSION)
+	message, err := docker.ExecDockerCmd("pull", "hyperledger/fabric-peer:x86_64-" + setup.VERSION)
 	
 	if err != nil{
 		t.Error("Error while running docker pull", err)
