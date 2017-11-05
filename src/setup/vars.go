@@ -1,14 +1,11 @@
 package setup
 
 const (
-	FABRICTAG = ""
 	VERSION = "1.0.3"
 	BASE_DOCKER_TAG = "0.3.2"
 	BASE_DOCKER_NAME = "baseos"
 	MIN_DOCKER_VER = "17.06.2"
 	DOCKER_IMG_PREFIX = "hyperledger/fabric-"
-	BIN = "bin"
-	BIN_DL_ROOT = "https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/"
 )
 
 var IMAGES = [...]string {"peer", "orderer", "couchdb", "ccenv", "javaenv", "kafka", "zookeeper", "tools", "ca"}

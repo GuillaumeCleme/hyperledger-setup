@@ -14,10 +14,6 @@ import (
 	"io"
 )
 
-//export ARCH=$(echo "$(uname -s|tr '[:upper:]' '[:lower:]'|sed 's/mingw64_nt.*/windows/')-$(uname -m | sed 's/x86_64/amd64/g')" | awk '{print tolower($0)}')
-//Set MARCH variable i.e ppc64le,s390x,x86_64,i386
-//MARCH=`uname -m`
-
 func dockerFabricPull(){
 	
 	arch := setup.GetImageArch()
@@ -25,6 +21,7 @@ func dockerFabricPull(){
 	for i := 0; i < len(setup.IMAGES); i++ {
 		
 		imageName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i] + ":" + arch + "-" + setup.VERSION
+		tagName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i]
 		
 		fmt.Println("Pulling Docker image: " + imageName)
 		
@@ -34,7 +31,7 @@ func dockerFabricPull(){
 		fmt.Println("Docker Pull:", message)
 		
 		//Docker Tag
-		message, err = docker.ExecDockerCmd("tag", imageName)
+		message, err = docker.ExecDockerCmd("tag", imageName, tagName)
 		checkErr("Error while running docker tag", err) //Will stop here if an error is encountered
 		fmt.Println("Docker Tag:", message)
 	}
@@ -129,6 +126,8 @@ func checkErr(message string, err error) {
 }
 
 func main(){
+	fmt.Println("Setup starting")
+	fmt.Println("Verifying Docker requirements")
 	
 	//Check Docker Requirements
 	dockerReq, err := checkDockerReq()
@@ -136,8 +135,12 @@ func main(){
 	
 	fmt.Println("Docker requirements satisfied: " + strconv.FormatBool(dockerReq))
 	
+	fmt.Println("Pulling Docker images")
+	
 	//Pull down images
 	dockerFabricPull()
+	
+	fmt.Println("Downloading binaries")
 	
 	//Get binaries, current directory
 	getBinaries(".")
