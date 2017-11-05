@@ -16,3 +16,15 @@ func GetRuntimeArch() string{
 func GetRuntimeOS() string{
 	return goOs
 }
+
+func GetImageArch() string{
+	
+	switch arch := goArch; arch {
+		case "s390x":
+			return arch
+		case "ppc64le":
+			return arch
+		default:
+			return "x86_64"
+	}
+}

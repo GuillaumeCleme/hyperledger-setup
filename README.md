@@ -15,3 +15,17 @@ A playground for learning all about Go while creating a HyperLedger DEV environm
 
 * String: https://golang.org/pkg/strings/
 * RegExp: https://golang.org/pkg/regexp/
+
+## Project Dependencies
+
+* Archiver: https://github.com/mholt/archiver
+
+## License
+
+Apache License Version 2.0, January 2004, http://www.apache.org/licenses/
+
+See LICENSE file
+
+## Creator(s)
+
+* Guillaume Clement - [GuillaumeC91](https://github.com/GuillaumeC91)
