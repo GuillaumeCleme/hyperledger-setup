@@ -24,8 +24,7 @@ func dockerFabricPull(){
 	
 	for i := 0; i < len(setup.IMAGES); i++ {
 		
-		imageName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i] + ":" + arch
-		
+		imageName := setup.DOCKER_IMG_PREFIX + setup.IMAGES[i] + ":" + arch + "-" + setup.VERSION
 		
 		fmt.Println("Pulling Docker image: " + imageName)
 		
@@ -35,21 +34,27 @@ func dockerFabricPull(){
 		checkErr("Error while running docker pull", err)
 
 		fmt.Println("Docker Pull:", "\n", message)
-
 	}
-	
 }
 
 func getBinaries(){
+
+	arch := setup.GetBinArch()
 	
-	tarFile := downloadFromUrl("") //TODO
+	if arch == ""{
+		log.Fatal("Retrieved incompatible package architecture")
+	}
+	
+	dlName := "hyperledger-fabric-" + arch + "-" + setup.VERSION + ".tar.gz"
+	
+	fmt.Println("Downloading file: " + dlName)
+	
+	tarFile := downloadFromUrl(setup.BIN_DL_ROOT + arch + "-" + setup.VERSION + "/" + dlName) //TODO
 	
 	err := archiver.TarGz.Open(tarFile, setup.BIN)
 	
 	//Will stop here if an error is encountered
-	checkErr("Error while extracting TAR file: " + tarFile, err)
-	
-	
+	checkErr("Error while extracting TAR file: " + tarFile, err)	
 }
 
 func downloadFromUrl(url string) string {
@@ -117,4 +122,7 @@ func main(){
 	
 	//Pull down images
 	dockerFabricPull()
+	
+	//Get binaries
+	getBinaries()
 }

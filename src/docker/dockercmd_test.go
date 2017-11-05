@@ -29,7 +29,7 @@ func TestGetDockerVersion(t *testing.T) {
 }
 
 func TestDockerPull(t *testing.T) {
-	message, err := docker.ExecDockerCmd("pull", "hyperledger/fabric-peer:x86_64-" + setup.VERSION)
+	message, err := docker.ExecDockerCmd("pull", "hyperledger/fabric-peer:x86_64-" + setup.VERSION) //TODO Fix for CI
 	
 	if err != nil{
 		t.Error("Error while running docker pull", err)

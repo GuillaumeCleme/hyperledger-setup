@@ -3,6 +3,7 @@ package setup_test
 import (
     "testing"
     "setup"
+    "fmt"
 )
 
 func TestGetRuntimeArch(t *testing.T) {
@@ -33,4 +34,15 @@ func TestGetImageArch(t *testing.T) {
 	} else if runtimeArch == "amd64" && runtime != "x86_64" {
 		t.Error("Invalid runtime architecture")
 	}
+}
+
+func TestGetBinArch(t *testing.T) {
+	
+	binArch := setup.GetBinArch()
+	
+	if binArch == ""{
+		t.Error("Could not get bin architecture")
+	}
+	
+	fmt.Println("Bin Architecture: " + binArch)
 }

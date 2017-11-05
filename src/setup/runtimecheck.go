@@ -28,3 +28,22 @@ func GetImageArch() string{
 			return "x86_64"
 	}
 }
+
+
+func GetBinArch() string{
+	
+	if(contains(goOs, SUPPORTED_OS[:]) && contains(goArch, SUPPORTED_ARCHS[:])){
+		return goOs + "-" + goArch
+	} else{
+		return ""
+	}
+}
+
+func contains(str string, arr []string) bool {
+   for _, a := range arr {
+      if a == str {
+         return true
+      }
+   }
+   return false
+}
