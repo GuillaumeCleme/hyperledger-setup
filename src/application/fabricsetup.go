@@ -28,41 +28,57 @@ func dockerFabricPull(){
 		
 		fmt.Println("Pulling Docker image: " + imageName)
 		
+		//Docker Pull images
 		message, err := docker.ExecDockerCmd("pull", imageName)
+		checkErr("Error while running docker pull", err) //Will stop here if an error is encountered
+		fmt.Println("Docker Pull:", message)
+		
+		//Docker Tag
+		message, err = docker.ExecDockerCmd("tag", imageName)
+		checkErr("Error while running docker tag", err) //Will stop here if an error is encountered
+		fmt.Println("Docker Tag:", message)
+	}
+	
+	imageName := setup.DOCKER_IMG_PREFIX + setup.BASE_DOCKER_NAME + ":" + arch + "-" + setup.BASE_DOCKER_TAG
+	
+	//Docker Pull baseos
+	message, err := docker.ExecDockerCmd("pull", imageName)
+	checkErr("Error while running docker pull", err) //Will stop here if an error is encountered
+	fmt.Println("Docker Pull:", message)
+}
+
+func getBinaries(location string){
+
+	for i := 0; i < len(setup.DOWNLOADS); i++ {
+		fmt.Println("Downloading file: " + setup.DOWNLOADS[i])
+	
+		location, tarFile := downloadFromUrl(setup.DOWNLOADS[i], location)
+		
+		dlLocation := location + tarFile
+		fmt.Println("Downloaded file to: " + dlLocation)
+		
+		err := archiver.TarGz.Open(dlLocation, location)
 		
 		//Will stop here if an error is encountered
-		checkErr("Error while running docker pull", err)
-
-		fmt.Println("Docker Pull:", "\n", message)
-	}
+		checkErr("Error while extracting TAR file: " + tarFile, err)
+	}	
 }
 
-func getBinaries(){
-
-	arch := setup.GetBinArch()
-	
-	if arch == ""{
-		log.Fatal("Retrieved incompatible package architecture")
-	}
-	
-	dlName := "hyperledger-fabric-" + arch + "-" + setup.VERSION + ".tar.gz"
-	
-	fmt.Println("Downloading file: " + dlName)
-	
-	tarFile := downloadFromUrl(setup.BIN_DL_ROOT + arch + "-" + setup.VERSION + "/" + dlName) //TODO
-	
-	err := archiver.TarGz.Open(tarFile, setup.BIN)
-	
-	//Will stop here if an error is encountered
-	checkErr("Error while extracting TAR file: " + tarFile, err)	
-}
-
-func downloadFromUrl(url string) string {
+func downloadFromUrl(url string, location string) (string, string) {
 	tokens := strings.Split(url, "/")
 	fileName := tokens[len(tokens)-1]
-	fmt.Println("Downloading", url, "to", fileName)
+	
+	if !strings.HasSuffix(location, "/"){
+		location = location + "/"
+	}
+	
+	fmt.Println("Downloading", url, "to", location + fileName)
+	
+	err := os.MkdirAll(location, os.ModeDir)
+	checkErr("Error while creating directory: " + location, err)
 
-	output, err := os.Create(fileName)	
+	newFile := location + fileName
+	output, err := os.Create(newFile)	
 	defer output.Close()
 	checkErr("Error while creating: " + fileName, err)
 
@@ -75,7 +91,7 @@ func downloadFromUrl(url string) string {
 
 	fmt.Println(n, "bytes downloaded.")
 	
-	return fileName
+	return location, fileName
 }
 
 func checkDockerReq() (bool, error){
@@ -123,6 +139,6 @@ func main(){
 	//Pull down images
 	dockerFabricPull()
 	
-	//Get binaries
-	getBinaries()
+	//Get binaries, current directory
+	getBinaries(".")
 }

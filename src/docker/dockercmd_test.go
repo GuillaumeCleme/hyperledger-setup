@@ -34,7 +34,7 @@ func TestDockerPull(t *testing.T) {
 	if err != nil{
 		t.Error("Error while running docker pull", err)
 	} else{
-		fmt.Println("Docker Pull:", "\n", message)
+		fmt.Println("Docker Pull:", message)
 	}
 }
 

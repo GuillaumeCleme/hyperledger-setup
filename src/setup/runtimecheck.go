@@ -2,6 +2,7 @@ package setup
 
 import (
 	"runtime"
+	"log"
 )
 
 const(
@@ -35,6 +36,7 @@ func GetBinArch() string{
 	if(contains(goOs, SUPPORTED_OS[:]) && contains(goArch, SUPPORTED_ARCHS[:])){
 		return goOs + "-" + goArch
 	} else{
+		log.Fatal("Retrieved incompatible package architecture")
 		return ""
 	}
 }

@@ -5,6 +5,8 @@ import (
 	"os/exec"
 	"regexp"
 	"errors"
+	"fmt"
+	"strings"
 )
 
 func IsDockerInstalled() bool{
@@ -45,6 +47,8 @@ func GetDockerVersion() (string, error){
 }
 
 func ExecDockerCmd(params ...string) (string, error){
+	
+	fmt.Println("Executing: docker", strings.Join(params," "))
 	
 	cmd := exec.Command("docker", params...)
 

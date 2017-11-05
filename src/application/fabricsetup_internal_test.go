@@ -4,30 +4,29 @@ import (
     "testing"
     "fmt"
 	"strconv"
-//	"setup"
-//	"log"
+	"strings"
+)
+
+const(
+	bin = "../../bin"
 )
 
 func TestGetBinaries(t *testing.T) {
 	
-	getBinaries()
-	
-//	fmt.Println("Fetched file: " + fileName)
-//	
-//	if fileName != "README.md" {
-//		t.Error("Filename did not match actual file")
-//	}
-	
+	//Void call
+	getBinaries(bin)	
 }
 
 func TestDownloadFromUrl(t *testing.T) {
 	
-	fileName := downloadFromUrl("https://github.com/hyperledger/fabric/blob/release/README.md")
+	location, fileName := downloadFromUrl("https://github.com/hyperledger/fabric/blob/release/README.md", bin)
 	
 	fmt.Println("Fetched file: " + fileName)
 	
 	if fileName != "README.md" {
 		t.Error("Filename did not match actual file")
+	} else if !strings.HasSuffix(location, "/"){
+		t.Error("Invalid path returned from downloadFromUrl() function")
 	}
 	
 }
@@ -45,6 +44,4 @@ func TestCheckErr(t *testing.T) {
 	
 	//TODO Monkey patch
 	//checkErr("Test w/ err", errors.New("Simulated error"))
-	
-	
 }
