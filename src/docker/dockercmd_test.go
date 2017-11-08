@@ -20,11 +20,11 @@ func TestGetDockerVersion(t *testing.T) {
 	message, err := docker.GetDockerVersion()
 	
 	if err != nil{
-		t.Error("Error while retrieving docker version", err)
+		t.Error("Error while retrieving docker version: ", err)
 	} else if !versionRegEx.MatchString(message) {
 		t.Error("Docker Version is invalid")
 	} else{
-		fmt.Println("Docker Version:", message)
+		fmt.Println("Docker Version: ", message)
 	}
 }
 
@@ -32,9 +32,9 @@ func TestDockerPull(t *testing.T) {
 	message, err := docker.ExecDockerCmd("pull", "hyperledger/fabric-peer:x86_64-" + configuration.VERSION)
 	
 	if err != nil{
-		t.Error("Error while running docker pull", err)
+		t.Error("Error while running docker pull: ", err)
 	} else{
-		fmt.Println("Docker Pull:", message)
+		fmt.Println("Docker Pull: ", message)
 	}
 }
 
